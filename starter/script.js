@@ -90,47 +90,97 @@ var upperCasedCharacters = [
 
 // 01. Function to prompt user for password options
 function getPasswordOptions() {
-  var characterLength = parseInt(prompt("How many characters would you like your password to have? (8-128)"));
-  if (characterLength < 8 || characterLength > 128) {
+  var passwordLength = parseInt(prompt("How many characters would you like your password to have? (8-128)"));
+  console.log(passwordLength);
+  if (passwordLength < 8 || passwordLength > 128) {
     alert("Sorry, incorrect imput! Value must be a number between 8 and 128.");
-    return;
+    return null;
   }
    // add -> 'if' statement for if they click 'ok' withouth putting anything in
    // or putting whitespace characters 
-  if ( characterLength.trim().length === 0) {
-    alert("Field empty! Please insert numerical value.");
-  } else if (characterLength === null) {
-    alert("Field null! Please insert numerical value.");
+
+  // if ( passwordLength.trim().length === 0) {
+  //   alert("Field empty! Please insert numerical value.");
+  //   return;
+  // } else if (passwordLength === ) {
+  //   alert("Field null! Please insert numerical value.");
+  //   return;
+  // }
+  if (Number.isNaN (passwordLength)) {
+    alert("Password lemgth must be a number.")
+    return null;
   }
+  
   var characterTypeUpper = confirm("Would you like your password to include uppercase characters?");
   var characterTypeLower = confirm("Would you like your password to include lowercase characters?");
   var characterTypeNumber = confirm("Would you like your password to include numbers?");
   var characterTypeSpecial = confirm("would you like your password to include special characters? ($@%&*, etc)");
-  return {
-    length: characterLength,
+  
+  // if they don't select anything 
+  if (
+    characterTypeUpper === false &&
+    characterTypeLower === false &&
+    characterTypeNumber === false &&
+    characterTypeSpecial === false 
+    ) {
+      alert("Please select at least one character type.");
+      return null;
+  } 
+
+   var userInputOptions =  {
+    length: passwordLength,
     uppercase: characterTypeUpper,
     lowercase: characterTypeLower,
     number: characterTypeNumber,
     special: characterTypeSpecial,
-  } 
+  }
+  return userInputOptions;
 }
 
 // 02. Function for getting a random element from an array
 function getRandom(arr) {
+  var randomIndex = Math.floor(Math.random() * arr.length);
+  var randomElement = arr[randomIndex];
+  return randomElement;
+
+ // while (newPasswordArray.length < length) {
+  //   var randomUpperCase = upperCasedCharacters[Math.floor(Math.random() * upperCasedCharacters.length)];
+  //   newPasswordArray.push(randomUpperCase)
+  // }
+
+
 
 }
-   // get random index from array
-   // use index to get random elemnt and return it
-   // combineine arrays?????
-
+  
 // 03. Function to generate password with user input
 function generatePassword() {
-  var userImput = getPasswordOptions()
+  var userInput = getPasswordOptions();
+  var newPasswordArray = [];
+  var result = [];
 
-  if ()
+  if (userInput.uppercase) {
+    newPasswordArray.push(getRandom(upperCasedCharacters));
+  } 
 
-   // call function (can be done here or in writePassword function)
-getPasswordOptions()
+  if (userInput.lowercase) {
+    newPasswordArray.push(getRandom(lowerCasedCharacters));
+  }
+
+  if (userInput.number) {
+    newPasswordArray.push(getRandom(numericCharacters));
+  }
+
+  if (userInput.special) {
+    newPasswordArray.push(getRandom(specialCharacters));
+  }
+
+  for ( var i = 0; i < userInput.length; i++) {
+    var randomCharacter = getRandom(newPasswordArray);
+    result.push(randomCharacter);
+  }
+  return result.join("");
+
+
 }
 
 // 04. Get references to the #generate element
@@ -149,8 +199,7 @@ generateBtn.addEventListener('click', writePassword);
 
 
 
-
-// NOTES & Internal Dilemmas:
+// NOTES:
 
 // characterLength promt by default returns a string but we need a number
 // so use 'parseInt()' -> takes a string and returns a number ()
@@ -169,6 +218,11 @@ generateBtn.addEventListener('click', writePassword);
 
 // whitespace = whitespace characters that make it appear non-empty even when it is.
 // '.trim()' to remove any leading or trailing whitespace characters before checking for emptiness
+
+
+// 02. Syntax for getting a random element from an array
+// var myArray = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape'];  
+// var randomElement = myArray[Math.floor(Math.random() * myArray.length)];  
 
 
 // 'return' statemnet CONFUSION passing along user imput from 01 -> 03:
