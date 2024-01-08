@@ -94,26 +94,14 @@ function getPasswordOptions() {
   // so use 'parseInt()' -> takes a string and returns a number
   var passwordLength = parseInt(prompt("How many characters would you like your password to have? (8-128)"));
 
-  // If they enter number outside 8 - 128
+  // If they enter number that is not between 8 - 128
   if (passwordLength < 8 || passwordLength > 128) {
     alert("Sorry, incorrect input! Value must be a number between 8 and 128.");
     return null;
   }
 
-  // add -> 'if' statement for if they click 'ok' withouth putting anything in
-  // or putting whitespace characters 
-
-  // '.trim()' to remove any leading or trailing whitespace characters before checking for emptiness
-
-  // if ( passwordLength.trim().length === 0) {
-  //   alert("Field empty! Please insert numerical value.");
-  //   return;
-  // } else if (passwordLength === null ) {
-  //   alert("Field null! Please insert numerical value.");
-  //   return;
-  // }
-
-  // When you console.log you get 'NaN' not 'null' 
+  // If they click 'ok' withouth putting anything in
+  // or putting whitespace characters (if you console.log you get 'NaN' not 'null')
   if (Number.isNaN (passwordLength)) {
     alert("Please enter a numerical value.")
     return null;
@@ -154,15 +142,6 @@ function getRandom(arr) {
   var randomElement = arr[randomIndex];
 
   return randomElement;
-
-  // Syntax for getting a random element from an array
-  // var myArray = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape'];  
-  // var randomElement = myArray[Math.floor(Math.random() * myArray.length)];  
-
-  // while (newPasswordArray.length < length) {
-  //   var randomUpperCase = upperCasedCharacters[Math.floor(Math.random() * upperCasedCharacters.length)];
-  //   newPasswordArray.push(randomUpperCase)
-  // } --> too long & would be repeating myself for each character type
 }
   
 // 03. Function to generate password with user input
@@ -195,8 +174,6 @@ function generatePassword() {
   }
 
   return result.join("");
-
-
 }
 
 // 04. Get references to the #generate element
