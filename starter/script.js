@@ -90,33 +90,42 @@ var upperCasedCharacters = [
 
 // 01. Function to prompt user for password options
 function getPasswordOptions() {
+  // passwordLength promt by default returns a string but we need a number
+  // so use 'parseInt()' -> takes a string and returns a number
   var passwordLength = parseInt(prompt("How many characters would you like your password to have? (8-128)"));
-  console.log(passwordLength);
+
+  // If they enter number outside 8 - 128
   if (passwordLength < 8 || passwordLength > 128) {
-    alert("Sorry, incorrect imput! Value must be a number between 8 and 128.");
+    alert("Sorry, incorrect input! Value must be a number between 8 and 128.");
     return null;
   }
-   // add -> 'if' statement for if they click 'ok' withouth putting anything in
-   // or putting whitespace characters 
+
+  // add -> 'if' statement for if they click 'ok' withouth putting anything in
+  // or putting whitespace characters 
+
+  // '.trim()' to remove any leading or trailing whitespace characters before checking for emptiness
 
   // if ( passwordLength.trim().length === 0) {
   //   alert("Field empty! Please insert numerical value.");
   //   return;
-  // } else if (passwordLength === ) {
+  // } else if (passwordLength === null ) {
   //   alert("Field null! Please insert numerical value.");
   //   return;
   // }
+
+  // When you console.log you get 'NaN' not 'null' 
   if (Number.isNaN (passwordLength)) {
-    alert("Password lemgth must be a number.")
+    alert("Please enter a numerical value.")
     return null;
   }
-  
+
+  // Character types
   var characterTypeUpper = confirm("Would you like your password to include uppercase characters?");
   var characterTypeLower = confirm("Would you like your password to include lowercase characters?");
   var characterTypeNumber = confirm("Would you like your password to include numbers?");
   var characterTypeSpecial = confirm("would you like your password to include special characters? ($@%&*, etc)");
-  
-  // if they don't select anything 
+
+  // If they don't select anything 
   if (
     characterTypeUpper === false &&
     characterTypeLower === false &&
@@ -127,6 +136,7 @@ function getPasswordOptions() {
       return null;
   } 
 
+  // Save options in a variable 
    var userInputOptions =  {
     length: passwordLength,
     uppercase: characterTypeUpper,
@@ -134,6 +144,7 @@ function getPasswordOptions() {
     number: characterTypeNumber,
     special: characterTypeSpecial,
   }
+
   return userInputOptions;
 }
 
@@ -141,20 +152,24 @@ function getPasswordOptions() {
 function getRandom(arr) {
   var randomIndex = Math.floor(Math.random() * arr.length);
   var randomElement = arr[randomIndex];
+
   return randomElement;
 
- // while (newPasswordArray.length < length) {
+  // Syntax for getting a random element from an array
+  // var myArray = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape'];  
+  // var randomElement = myArray[Math.floor(Math.random() * myArray.length)];  
+
+  // while (newPasswordArray.length < length) {
   //   var randomUpperCase = upperCasedCharacters[Math.floor(Math.random() * upperCasedCharacters.length)];
   //   newPasswordArray.push(randomUpperCase)
-  // }
-
-
-
+  // } --> too long & would be repeating myself for each character type
 }
   
 // 03. Function to generate password with user input
 function generatePassword() {
+  // Call for password options so we get user input
   var userInput = getPasswordOptions();
+  // Push random characters in new array
   var newPasswordArray = [];
   var result = [];
 
@@ -178,6 +193,7 @@ function generatePassword() {
     var randomCharacter = getRandom(newPasswordArray);
     result.push(randomCharacter);
   }
+
   return result.join("");
 
 
@@ -196,42 +212,3 @@ function writePassword() {
 
 // 06. Add event listener to generate button
 generateBtn.addEventListener('click', writePassword);
-
-
-
-// NOTES:
-
-// characterLength promt by default returns a string but we need a number
-// so use 'parseInt()' -> takes a string and returns a number ()
-// put whole promt inside ()
-
-
-// DIFFERENCE betweent empty, null, & whitespace (strings):
-// https://www.freecodecamp.org/news/check-if-string-is-empty-or-null-javascript/
-// empty = if string length is 0 
-// (an empty string is a valid string object so all string operations are available on this item)
-// check !! -> if (typeof characterLength === "string" && characterLength.length === 0)
-
-// null = the absence of any value 
-// implies that it doesn’t refer to any object or value in the memory. By default, Java initializes reference variables 
-// with null values and primitives with default values -> cannot assign null to primitives.
-
-// whitespace = whitespace characters that make it appear non-empty even when it is.
-// '.trim()' to remove any leading or trailing whitespace characters before checking for emptiness
-
-
-// 02. Syntax for getting a random element from an array
-// var myArray = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape'];  
-// var randomElement = myArray[Math.floor(Math.random() * myArray.length)];  
-
-
-// 'return' statemnet CONFUSION passing along user imput from 01 -> 03:
-// 1. I don't need to save the user imput return object in a variable (e.g userImput) 
-// 2. If I did I wouldn't be able to use it in 03 anyaway (bc that variable is local to that function only)
-// 3. So, you just create the variable 'userImput' in 03 and call the 01 function inside of that 
-// SO -> var userImput = getPasswordOptions() 
-
-
-// Where to CALL for password to do its thing:
-// might not be the best option to call the function in writePassword (05) 
-// but rather to call it in generatePassword (03) function instead 
