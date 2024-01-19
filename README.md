@@ -17,6 +17,8 @@ Creating an application that an employee can use to generate a random password b
 N/A
 
 ## Usage 
+Generate a password <a href=" https://becket222.github.io/password-generator/"> here</a>!
+
 ![Screenshot of deployed application.](assets/05-javascript-challenge-demo.png)
 
 ## Acceptance Criteria 
